@@ -14,4 +14,4 @@ knitr::opts_chunk$set(echo = TRUE)
 ?read.fwf
 
 ```
-
+# har ikke rukket å jobbe med det på grunn av prove eksamen i investering & finansierin.
