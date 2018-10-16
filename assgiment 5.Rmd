@@ -3,6 +3,8 @@ title: "Assigment_ 5Read fixed file format"
 author: "Abraham. G. Habtai"
 date: "16 oktober 2018"
 output: html_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
@@ -15,9 +17,9 @@ getwd()
 rm(list=ls())
 library(readr)
 library(tidyverse)
-
+library(mosaic)
 ```
-##?read_fwf
+##Importing data through"read_fwf""
 ```{r}
 birth_data2017<-read_fwf(file = "Nat2014PublicUS.c20150514.r20151022.txt",
          fwf_positions(start = c(13,475,504),
@@ -25,16 +27,66 @@ birth_data2017<-read_fwf(file = "Nat2014PublicUS.c20150514.r20151022.txt",
                        col_names = c("month","gender","weight")))
 
 ```
-##view & change structure
+##view & changing class
 ```{r}
-library(mosaic)
 
 str(birth_data2017)
 head(birth_data2017)
 birth_data2017$month <- as.numeric(birth_data2017$month)
 birth_data2017$gender<-as.factor(birth_data2017$gender)
 birth_data2017$weight<-as.numeric(birth_data2017$weight)
+
+tail(birth_data2017)
+length(birth_data$weight)
 ```
-##
+
+##Cleaning data
+
+```{r}
+birth_data2017%>% summarise(sum(birth_data2017$weight == 9999))
+birth_data<- birth_data2017 %>% filter(weight < 9999)
+glimpse(birth_data)
+str(birth_data)
+View(birth_data)
+```
+
+## working with data
+```{r}
+attach(birth_data)
+names(birth_data)
+mean(weight)
+favstats(weight)
+favstats(month)
+favstats(~weight|month, data = birth_data)
+summary(lm(weight~as.factor(month), data = birth_data))
+```
+
+#tally boys & grils
+```{r}
+tally(gender)
+tally(gender, format = "percent")
+```
+#mean weight
+```{r}
+favstats(weight)
+```
+
+##graphs
+```{r}
+library(tidyverse)
+ggplot(birth_data,aes(x=weight))+geom_density()+
+  labs(title="density of birth")
+favstats(weight)
+ggplot()+geom_density(data=, aes(x=weight, group=gender, 
+  fill =gender),alpha=0.5,adjust=2)+
+  labs(title= "Weight at birth")+
+  xlab("Birth Weight")+ ylab("Density")
+
+birth_data %>% group_by(month) %>% summarise(monthly.average=mean(weight)) %>% 
+  ggplot(., aes(x=month,y=monthly.average)) + geom_line()+
+  labs(title= "monthly birth weight average ")
+
+       
+```
 
 
