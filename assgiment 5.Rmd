@@ -1,0 +1,17 @@
+---
+title: "Assigment_ 5Read fixed file format"
+author: "Abraham. G. Habtai"
+date: "16 oktober 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 
+```{r}
+?read.fwf
+
+```
+
