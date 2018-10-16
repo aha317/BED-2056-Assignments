@@ -9,9 +9,32 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## 
+## working with child birth data
 ```{r}
-?read.fwf
+getwd()
+rm(list=ls())
+library(readr)
+library(tidyverse)
 
 ```
+##?read_fwf
+```{r}
+birth_data2017<-read_fwf(file = "Nat2014PublicUS.c20150514.r20151022.txt",
+         fwf_positions(start = c(13,475,504),
+                       end = c(14,475,507),
+                       col_names = c("month","gender","weight")))
+
+```
+##view & change structure
+```{r}
+library(mosaic)
+
+str(birth_data2017)
+head(birth_data2017)
+birth_data2017$month <- as.numeric(birth_data2017$month)
+birth_data2017$gender<-as.factor(birth_data2017$gender)
+birth_data2017$weight<-as.numeric(birth_data2017$weight)
+```
+##
+
 
